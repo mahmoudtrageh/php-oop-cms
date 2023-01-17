@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'controller/controller.php';
 
 $section = $_GET['section'] ?? $_POST['section'] ?? 'home';

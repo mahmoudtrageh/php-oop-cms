@@ -4,8 +4,12 @@ class AboutController extends Controller{
 
     function defaultAction() {
 
-        $variables['title'] = 'About Page Title';
-        $variables['content'] = 'This is About page content and hello my friend';
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+
+        $pageObj = new Page($dbc);
+        $pageObj->findById(2);
+        $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');
         $template->view('static-page', $variables);

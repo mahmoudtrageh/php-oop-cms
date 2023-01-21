@@ -19,7 +19,7 @@ final class DatabaseConnection {
 
     private function __clone() {}
 
-    private function __wakeup() {}
+    public function __wakeup() {}
 
     public static function connect($host, $dbName, $user, $password) {
         self::$connection = new PDO("mysql:dbname=$dbName;host=$host", $user, $password);

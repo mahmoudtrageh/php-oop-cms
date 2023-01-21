@@ -29,7 +29,7 @@ class ContactController extends Controller{
         $dbc = $dbh->getConnection();
 
         $pageObj = new Page($dbc);
-        $pageObj->findById(3);
+        $pageObj->findBy('id', $this->entityId);
         $variables['pageObj'] = $pageObj;
 
         $template = new Template('default');

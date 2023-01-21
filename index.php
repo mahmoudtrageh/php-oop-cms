@@ -7,29 +7,29 @@ define('VIEW_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARAT
 require_once ROOT_PATH . 'src/Controller.php';
 require_once ROOT_PATH . 'src/Template.php';
 require_once ROOT_PATH . 'src/DatabaseConnection.php';
+require_once ROOT_PATH . 'src/Entity.php';
+require_once ROOT_PATH . 'src/Router.php';
 require_once ROOT_PATH . 'model/Page.php';
-
 
 /* Connect to a MySQL database using driver invocation */
 DatabaseConnection::connect('localhost', 'cms', 'root', '');
 
-$section = $_GET['section'] ?? $_POST['section'] ?? 'home';
-$action = $_GET['action'] ?? $_POST['action'] ?? 'default';
+// Routing
+$action = $_GET['seo_name'] ?? 'home';
 
-if($section == 'about') {
-    
-    include ROOT_PATH . 'controller/about-us.php';
-    $aboutController = new AboutController();
-    $aboutController->runAction($action);
+$dbh = DatabaseConnection::getInstance();
+$dbc = $dbh->getConnection();
 
-} else if ($section == 'contact') {
-    
-    include ROOT_PATH . 'controller/contact-us.php';
-    $contactController = new ContactController();
-    $contactController->runAction($action);
+$router = new Router($dbc);
+$router->findBy('pretty_url', $action);
 
-} else {
-    include ROOT_PATH . 'controller/home.php';
-    $homeontroller = new HomeController();
-    $homeontroller->runAction($action);
+$action = $router->action != '' ? $router->action : 'default';
+
+$moduleName = ucfirst($router->module) . 'Controller';
+
+if(file_exists(ROOT_PATH . 'controller/' . $moduleName. '.php')) {
+    include ROOT_PATH . 'controller/'. $moduleName . '.php';
+    $controller = new $moduleName();
+    $controller->setEntityId($router->entity_id);
+    $controller->runAction($action);
 }

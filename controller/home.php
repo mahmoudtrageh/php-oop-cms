@@ -1,12 +1,18 @@
 <?php
 
-include 'view/main/layout.html';
+class HomeController extends Controller{
 
-include 'view/main/header.html';
+    function defaultAction() {
+       
+        $variables['title'] = 'Home Page Title';
+        $variables['content'] = 'This is home page content and hello my friend';
 
-include 'view/home.html';
+        $template = new Template('default');
+        $template->view('static-page', $variables);
+    }
 
-include 'view/main/footer.html';
+}
+
 
 
 ?>

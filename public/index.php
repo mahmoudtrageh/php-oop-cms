@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+use src\DatabaseConnection;
+use src\Template;
+
 define('ROOT_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 define('VIEW_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
 define('MODULE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR);
@@ -33,6 +36,9 @@ $controllerFile = MODULE_PATH . $router->module . '/controllers/' . $moduleName.
 if(file_exists($controllerFile)) {
     include $controllerFile;
     $controller = new $moduleName();
+
+    $controller->template = new Template('layout/default');
+
     $controller->setEntityId($router->entity_id);
     $controller->runAction($action);
 }

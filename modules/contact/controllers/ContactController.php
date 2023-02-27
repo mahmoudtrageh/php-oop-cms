@@ -1,6 +1,9 @@
 <?php
 
-class ContactController extends Controller{
+use src\DatabaseConnection;
+use modules\page\models\Page;
+
+class ContactController extends \src\Controller{
 
 
   function runBeforeAction() {
@@ -13,8 +16,7 @@ class ContactController extends Controller{
         $pageObj->findById(4);
         $variables['pageObj'] = $pageObj;
 
-      $template = new Template('default');
-      $template->view('contact/views/static-page', $variables);
+      $this->template->view('contact/views/static-page', $variables);
 
       return false;
 
@@ -32,8 +34,7 @@ class ContactController extends Controller{
         $pageObj->findBy('id', $this->entityId);
         $variables['pageObj'] = $pageObj;
 
-        $template = new Template('default');
-        $template->view('contact/views/contact-us', $variables);
+        $this->template->view('contact/views/contact-us', $variables);
   }
 
   function submitContactFormAction() {
@@ -47,8 +48,7 @@ class ContactController extends Controller{
       $pageObj->findById(5);
       $variables['pageObj'] = $pageObj;
 
-        $template = new Template('default');
-        $template->view('contact/views/static-page', $variables);
+        $this->template->view('contact/views/static-page', $variables);
    
   }
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace src;
+
 class Template {
 
     private $layout;
@@ -10,6 +12,6 @@ class Template {
 
     function view($template, $variables) {
         extract($variables);
-        include VIEW_PATH . 'layout/'.$this->layout.'.html';
+        include VIEW_PATH . $this->layout.'.html';
     }
 }

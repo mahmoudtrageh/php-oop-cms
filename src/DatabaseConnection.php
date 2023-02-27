@@ -1,5 +1,7 @@
 <?php
 
+namespace src;
+
 final class DatabaseConnection {
 
     private static $instance = null;
@@ -22,7 +24,7 @@ final class DatabaseConnection {
     public function __wakeup() {}
 
     public static function connect($host, $dbName, $user, $password) {
-        self::$connection = new PDO("mysql:dbname=$dbName;host=$host", $user, $password);
+        self::$connection = new \PDO("mysql:dbname=$dbName;host=$host", $user, $password);
     }
 
     public static function getConnection() {

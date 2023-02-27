@@ -1,6 +1,6 @@
 <?php
 
-class Router extends Entity {
+class Router extends \src\Entity {
 
     public function __construct($dbc) {  
         parent::__construct($dbc, 'routes');        

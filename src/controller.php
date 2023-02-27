@@ -1,10 +1,14 @@
 <?php
 
+namespace src;
+
 class Controller {
     
     protected $entityId;
-
-
+    public $template;
+    public $dbc;
+    public $log;
+    
     function runAction($actionName) {
 
       if(method_exists($this, 'runBeforeAction')) {
@@ -25,5 +29,10 @@ class Controller {
 
     public function setEntityId($entityId) {
       $this->entityId = $entityId;
+    }
+
+    function  getEdit($id) {
+
+
     }
 }

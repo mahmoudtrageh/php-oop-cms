@@ -1,6 +1,8 @@
 <?php
+use src\DatabaseConnection;
+use modules\page\models\Page;
 
-class PageController extends Controller{
+class PageController extends \src\Controller{
 
     function defaultAction() {
 
@@ -11,8 +13,7 @@ class PageController extends Controller{
         $pageObj->findBy('id', $this->entityId);
         $variables['pageObj'] = $pageObj;
 
-        $template = new Template('default');
-        $template->view('page/views/static-page', $variables);
+        $this->template->view('page/views/static-page', $variables);
     }
 
 }
